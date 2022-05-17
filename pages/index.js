@@ -1,5 +1,4 @@
 import React from "react";
-import Head from "next/head";
 
 import { client } from "../lib/client";
 
@@ -8,10 +7,6 @@ import { HeroBanner, Product, FooterBanner } from "../components";
 const Home = ({ products, bannerData }) => {
   return (
     <>
-      <Head>
-        <title>Amazona</title>
-      </Head>
-
       <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
 
       <div className="products-heading">
