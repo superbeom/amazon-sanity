@@ -1,12 +1,18 @@
 import "../styles/globals.css";
+import { Toaster } from "react-hot-toast";
+
+import { StateProvider } from "../context/StateContext";
 
 import { Layout } from "../components";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <StateProvider>
+      <Layout>
+        <Toaster />
+        <Component {...pageProps} />
+      </Layout>
+    </StateProvider>
   );
 }
 
