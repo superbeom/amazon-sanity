@@ -52,6 +52,20 @@ export const StateProvider = ({ children }) => {
     toast.success(`${qty} ${product.name} added to the cart.`);
   };
 
+  const onRemove = (id) => {
+    const updatedCartItems = cartItems.filter((item) => item._id !== id);
+    const targetProduct = cartItems.find((item) => item._id === id);
+
+    setCartItems(updatedCartItems);
+    setTotalPrice(
+      (prevTotalPrice) =>
+        prevTotalPrice - targetProduct.quantity * targetProduct.price
+    );
+    setTotalQuantities(
+      (prevTotalQuantities) => prevTotalQuantities - targetProduct.quantity
+    );
+  };
+
   const toggleCartItemQuantity = (id, value) => {
     const updatedCartItems = [];
 
@@ -93,6 +107,7 @@ export const StateProvider = ({ children }) => {
         incQty,
         decQty,
         onAdd,
+        onRemove,
         toggleCartItemQuantity,
       }}
     >
