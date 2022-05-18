@@ -12,10 +12,16 @@ import { client, urlFor } from "../../lib/client";
 import { Product } from "../../components";
 
 const ProductDetails = ({ products, product }) => {
-  const { qty, setQty, incQty, decQty, onAdd } = useStateContext();
+  const { setShowCart, qty, setQty, incQty, decQty, onAdd } = useStateContext();
   const [index, setIndex] = useState(0);
 
   const { image, name, price, details } = product;
+
+  const handleBuyNow = () => {
+    onAdd(product, qty);
+
+    setShowCart(true);
+  };
 
   useEffect(() => {
     setQty(1);
@@ -91,7 +97,7 @@ const ProductDetails = ({ products, product }) => {
               Add to Cart
             </button>
 
-            <button className="buy-now" type="button" onClick={() => null}>
+            <button className="buy-now" type="button" onClick={handleBuyNow}>
               Buy Now
             </button>
           </div>
