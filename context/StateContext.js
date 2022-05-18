@@ -52,17 +52,48 @@ export const StateProvider = ({ children }) => {
     toast.success(`${qty} ${product.name} added to the cart.`);
   };
 
+  const toggleCartItemQuantity = (id, value) => {
+    const updatedCartItems = [];
+
+    cartItems.forEach((item) => {
+      if (item._id === id && value === "inc") {
+        updatedCartItems.push({
+          ...item,
+          quantity: item.quantity + 1,
+        });
+
+        setTotalPrice((prevTotalPrice) => prevTotalPrice + item.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
+      } else if (item._id === id && value === "dec" && item.quantity > 1) {
+        updatedCartItems.push({
+          ...item,
+          quantity: item.quantity - 1,
+        });
+
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - item.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
+      } else {
+        updatedCartItems.push(item);
+      }
+    });
+
+    setCartItems(updatedCartItems);
+  };
+
   return (
     <StateContext.Provider
       value={{
         showCart,
+        setShowCart,
         cartItems,
         totalPrice,
         totalQuantities,
         qty,
+        setQty,
         incQty,
         decQty,
         onAdd,
+        toggleCartItemQuantity,
       }}
     >
       {children}
