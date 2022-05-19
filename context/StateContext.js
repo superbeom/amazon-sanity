@@ -10,6 +10,13 @@ export const StateProvider = ({ children }) => {
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
 
+  const clearState = () => {
+    localStorage.clear();
+    setCartItems([]);
+    setTotalPrice(0);
+    setTotalQuantities(0);
+  };
+
   const incQty = () => {
     setQty((prevQty) => prevQty + 1);
   };
@@ -104,6 +111,7 @@ export const StateProvider = ({ children }) => {
         totalQuantities,
         qty,
         setQty,
+        clearState,
         incQty,
         decQty,
         onAdd,
