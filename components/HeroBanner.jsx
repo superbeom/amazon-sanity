@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
-import { urlFor } from "../lib/client";
+import { exchangeImageUrl } from "../lib/utils";
 
 const HeroBanner = ({
   heroBanner: {
@@ -19,7 +20,15 @@ const HeroBanner = ({
       <p className="beats-so">{smallText}</p>
       <h3>{midText}</h3>
       <h1>{largeText1}</h1>
-      <img className="hero-banner-image" src={urlFor(image)} alt="headphones" />
+
+      <div className="hero-banner-image">
+        <Image
+          src={exchangeImageUrl(image.asset._ref)}
+          alt="headphones"
+          width="500vw"
+          height="500vw"
+        />
+      </div>
 
       <div>
         <Link href={`/product/${product}`}>

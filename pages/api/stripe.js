@@ -1,5 +1,7 @@
 import Stripe from "stripe";
 
+import { exchangeImageUrl } from "../../lib/utils";
+
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
@@ -23,13 +25,7 @@ export default async function handler(req, res) {
           enabled: true,
         },
         line_items: cartItems.map((item) => {
-          const img = item.image[0].asset._ref;
-          const updatedImage = img
-            .replace(
-              "image-",
-              `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/production/`
-            )
-            .replace("-webp", ".webp");
+          const updatedImage = exchangeImageUrl(item.image[0].asset._ref);
 
           return {
             price_data: {

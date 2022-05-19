@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import {
   AiOutlineMinus,
   AiOutlinePlus,
@@ -7,7 +8,8 @@ import {
 } from "react-icons/ai";
 
 import { useStateContext } from "../../context/StateContext";
-import { client, urlFor } from "../../lib/client";
+import { client } from "../../lib/client";
+import { exchangeImageUrl } from "../../lib/utils";
 
 import { Product } from "../../components";
 
@@ -32,23 +34,27 @@ const ProductDetails = ({ products, product }) => {
       <div className="product-detail-container">
         <div>
           <div className="image-container">
-            <img
+            <Image
               className="product-detail-image"
-              src={urlFor(image && image[index])}
+              src={image && exchangeImageUrl(image[index].asset._ref)}
               alt={name}
+              width="400vw"
+              height="400vw"
             />
           </div>
 
           <div className="small-images-container">
             {image?.map((item, i) => (
-              <img
+              <Image
                 className={
                   i === index ? "small-image selected-image" : "small-image"
                 }
                 key={item._key}
-                src={urlFor(item)}
+                src={exchangeImageUrl(item.asset._ref)}
                 alt={name}
                 onMouseEnter={() => setIndex(i)}
+                width="70vw"
+                height="70vw"
               />
             ))}
           </div>

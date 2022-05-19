@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import Image from "next/image";
 import {
   AiOutlineLeft,
   AiOutlineShopping,
@@ -10,8 +11,8 @@ import toast from "react-hot-toast";
 
 import { useStateContext } from "../context/StateContext";
 
-import { urlFor } from "../lib/client";
 import getStripe from "../lib/getStripe";
+import { exchangeImageUrl } from "../lib/utils";
 
 const Cart = () => {
   const cartRef = useRef();
@@ -78,10 +79,12 @@ const Cart = () => {
           {cartItems.length > 0 &&
             cartItems.map((item) => (
               <div key={item._id} className="product">
-                <img
+                <Image
                   className="cart-product-image"
-                  src={urlFor(item.image && item.image[0])}
+                  src={item.image && exchangeImageUrl(item.image[0].asset._ref)}
                   alt={item.name}
+                  width="120vw"
+                  height="120vw"
                 />
 
                 <div className="item-desc">

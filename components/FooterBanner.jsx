@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
-import { urlFor } from "../lib/client";
+import { exchangeImageUrl } from "../lib/utils";
 
 const FooterBanner = ({
   footerBanner: {
@@ -36,7 +37,14 @@ const FooterBanner = ({
         </Link>
       </div>
 
-      <img className="footer-banner-image" src={urlFor(image)} alt={product} />
+      <div className="footer-banner-image">
+        <Image
+          src={exchangeImageUrl(image.asset._ref)}
+          alt={product}
+          width="500vw"
+          height="500vw"
+        />
+      </div>
     </div>
   </div>
 );
